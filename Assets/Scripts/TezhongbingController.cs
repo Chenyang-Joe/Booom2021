@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaoanController : MonoBehaviour
+public class TezhongbingController : MonoBehaviour
 {
     public float speed = 10f;
 
@@ -31,8 +31,8 @@ public class BaoanController : MonoBehaviour
     {
 
 
-        _x = Input.GetAxis("Horizontal1");
-        _y = Input.GetAxis("Vertical1");
+        _x = Input.GetAxis("Horizontal2");
+        _y = Input.GetAxis("Vertical2");
 
         Vector2 movement = new Vector2(_x, _y);
 
@@ -46,14 +46,14 @@ public class BaoanController : MonoBehaviour
 
         if (movement.x > 0f)
         {
-            _animator.SetFloat(name: "LookX",1f);
+            _animator.SetFloat(name: "LookX", 1f);
         }
         else if (movement.x < 0f)
         {
             _animator.SetFloat(name: "LookX", 0f);
         }
 
-        if (Input.GetKey(KeyCode.RightShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             _currentInput = movement * 2.0f;
         }
