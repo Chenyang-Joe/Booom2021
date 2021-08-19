@@ -7,7 +7,7 @@ public class BaoanController : MonoBehaviour
     public float speed = 10f;
 
 
-    private Rigidbody2D _rigidbody2D;
+    private Rigidbody2D _rigidBody2D;
     private Animator _animator;
 
     private Vector2 _lookDirection = Vector2.down;
@@ -20,7 +20,7 @@ public class BaoanController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidBody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
 
 
@@ -69,9 +69,9 @@ public class BaoanController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 position = _rigidbody2D.position;
+        Vector2 position = _rigidBody2D.position;
         position += _currentInput * speed * Time.deltaTime;
-        _rigidbody2D.MovePosition(position);
+        _rigidBody2D.MovePosition(position);
 
     }
 

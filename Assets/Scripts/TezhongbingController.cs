@@ -16,6 +16,8 @@ public class TezhongbingController : MonoBehaviour
     private float _x;
     private float _y;
 
+    public GameObject Bomb;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +65,11 @@ public class TezhongbingController : MonoBehaviour
         }
         _animator.SetFloat(name: "Speed", _currentInput.magnitude);
 
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            LaunchBomb();
+        }
+
 
     }
 
@@ -73,9 +80,20 @@ public class TezhongbingController : MonoBehaviour
         position += _currentInput * speed * Time.deltaTime;
         _rigidbody2D.MovePosition(position);
 
+
+
     }
 
 
+    private void LaunchBomb()
+    {
 
+        GameObject bomb_1 = null;
+        GameObject bomb_2 = null;
+
+        Vector2 position = _rigidbody2D.position;
+        bomb_1 = Instantiate(Bomb, position + Vector2.down * 3f, Quaternion.identity);
+        bomb_2 = Instantiate(Bomb, position + Vector2.down * 3f + Vector2.right * 52f, Quaternion.identity);
+    }
 
 }
