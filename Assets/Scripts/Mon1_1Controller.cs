@@ -10,6 +10,7 @@ public class Mon1_1Controller : MonoBehaviour
     private Animator _animator;
     public float speed1 = 2f;
     public float speed2 = 10f;
+    private float _currentSpeed = 1f;
 
 
 
@@ -24,18 +25,20 @@ public class Mon1_1Controller : MonoBehaviour
     public float FollowDistance = 12f;
     private float _targetDistance;
     private Seeker _seeker;
-
-
+    private Path _path;
+    private int _currentWaypoint;
+    private float _nextWaypointDistance = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        Seeker _seeker = GetComponent<Seeker>();
+        _seeker = GetComponent<Seeker>();
 
 
         _remainingTime = timeToChangeDirection;
+
 
     }
 
@@ -63,12 +66,12 @@ public class Mon1_1Controller : MonoBehaviour
             case 1:
                 _animator.SetFloat(name: "Target", 1);
                 _animator.SetFloat(name: "Burst", 0);
-                Chase();
+                AIChase();
                 break;
             case 2:
                 _animator.SetFloat(name: "Target", 1);
                 _animator.SetFloat(name: "Burst", 1);
-                Burst();
+                AIBurst();
                 break;
             default:
                 break;
@@ -122,9 +125,31 @@ public class Mon1_1Controller : MonoBehaviour
             _monsterState = 2;
 
         }
-
-
     }
+
+    private void AIChase()
+    {
+        if (_targetDistance > FollowDistance)
+        {
+            _monsterState = 0;
+        }
+
+        _currentSpeed = speed1;
+        UpdatePath();
+        MoveToTarget();
+
+        if (_remainingTime <= 0)
+        {
+            _remainingTime = burstDuration;
+            _monsterState = 2;
+        }
+    }
+
+
+
+
+
+
 
     private void Burst()
     {
@@ -152,22 +177,109 @@ public class Mon1_1Controller : MonoBehaviour
     }
 
 
+    private void AIBurst()
+    {
+
+    _nextWaypointDistance = 0.5f;
+    _currentSpeed = speed2;
+        UpdatePath();
+        MoveToTarget();
+
+        if (_remainingTime <= 0)
+        {
+            _remainingTime = timeToChangeDirection;
+            _monsterState = 0;
+
+        }
+    }
+
+
+
     private void UpdateDistance()
     {
         Vector2 _targetPositionVetor2 = Target.position;
         _targetDistance = Vector2.Distance(Target.position, _rigidBody2D.position);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void UpdatePath()
     {
-        print(other.gameObject.name);
+        Vector2 _targetPositionVetor = Target.position;
+        _seeker.StartPath(_rigidBody2D.position, _targetPositionVetor, OnPathComplete);
+    }
 
-        if (string.Equals("bomb", other.gameObject.name.Substring(0,4)) )
+    private void OnPathComplete(Path p)
+    {
+        if (!p.error)
         {
-            Destroy(gameObject);
+            _path = p;
+            _currentWaypoint = 0;
+        }
+    }
+
+    private void MoveToTarget()
+    {
+        if (_path == null) 
+        { 
+            return; 
         }
 
+        float distanceToWaypoint;
+        while (true)
+        {
+            distanceToWaypoint = Vector2.Distance(transform.position, _path.vectorPath[_currentWaypoint]);
+            if (distanceToWaypoint < _nextWaypointDistance)
+            {
+                if (_currentWaypoint + 1 < _path.vectorPath.Count) 
+                { 
+                    _currentWaypoint++; 
+                }
+                else 
+                { 
+                    _path = null; 
+                    break; 
+                }
+            }
+            else 
+            { 
+                break; 
+            }
+        }
+
+        Vector2 _targetPoint = _path.vectorPath[_currentWaypoint];
+        Vector2 _targetDirection = ( _targetPoint - _rigidBody2D.position ).normalized;
+        _rigidBody2D.MovePosition(_rigidBody2D.position + _targetDirection * _currentSpeed * Time.deltaTime);
+
+
+
+        if (_targetDirection.x >= 0)
+        {
+            _animator.SetFloat(name: "LookX", 1);
+        }
+        else
+        {
+            _animator.SetFloat(name: "LookX", 0);
+        }
+    }
+
+
+
+
+
+    public void Dead()
+    {
+        StartCoroutine(Dispear());
 
     }
+
+
+    IEnumerator Dispear()
+    {
+        _monsterState = 0;
+        GetComponent<Animator>().SetFloat(name: "Dead", 1f);
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
+
+    }
+
 
 }

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - 
   - Bound
   - 
-  - 
-  - 
+  - Monster
+  - Obstacle
   - 
   - CameraP1
   - CameraP2
@@ -49,4 +50,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1859598849
+    locked: 0
+  - name: Item
+    uniqueID: 2757099973
     locked: 0
