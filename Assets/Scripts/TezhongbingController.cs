@@ -20,6 +20,8 @@ public class TezhongbingController : MonoBehaviour
     public GameObject BombLeft;
     public GameObject BombRight;
 
+    public float MapOffset = 72f;
+
 
     public bool HoldItem = false;
 
@@ -128,7 +130,7 @@ public class TezhongbingController : MonoBehaviour
         HoldItem = false;
         Vector2 position = _rigidbody2D.position;
         bomb1 = Instantiate(BombLeft, position + Vector2.down * 3f , Quaternion.identity);
-        bomb2 = Instantiate(BombRight, position + Vector2.down * 3f + Vector2.right * 52f, Quaternion.identity);
+        bomb2 = Instantiate(BombRight, position + Vector2.down * 3f + Vector2.right * MapOffset , Quaternion.identity);
 
 
         transform.Find("BombGrabber").GetComponent<WeaponManager>().PutDownBomb();
