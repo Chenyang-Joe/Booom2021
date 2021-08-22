@@ -1,0 +1,50 @@
+# 丁卯点阵体更新记录
+
+## v1.002 (2020-09-22)
+
+### 7px
+
+* 新增字符形 `comma-han.half`
+
+### 9px
+
+* 新增半角片假名和标点 `comma-han.half`, `period-han.half` 以及相应的 `hwid` 特性
+* 优化片假名的造型和高度
+
+## v1.001 (2020-09-22)
+
+### 7px
+
+* 修复边距错误
+  * 左侧边距：`Eth`, `Dcroat`, `rcaron`
+  * 右侧边距：`Wacute`, `Wcircumflex`, `Wdieresis`, `Wgrave`, `kcommaaccent`, `question`, `exclamationquestion`, `micro`
+  * 双侧边距：`oslash`
+* 新增中文破折号 `twoemdash`、省略号 `ellipsis-han` 及相应的 `ccmp` 特性
+* 新增用于时间显示的居中冒号 `colon.calt` 及相应的 `calt` 特性
+* 新增字符形 `yen.full`
+* 删除无用字符形：`uni54C1.ss01`, `uni70B9.ss02`, `delta.ss01`
+* 优化字形：`kcommaaccent`, `lcommaaccent`, `colon`, `semicolon`, `minus`
+* 调整标点字形：`exclamdown`, `questiondown`, `periodcentered`, `bullet`, `asterism`, `caretSign`, `caretinsertionpoint`, `closeup`, `exclamationquestion`, `exclamdouble`, `interrobang`, `invertedundertie`, `doublequestion`, `questionexclamation`, `undertie`, `exclam.full.vert`, `question.full.vert`
+* 调整符号字形：`angle`, `commercialMinusSign`, `gradient`, `greateroverequal`, `lessoverequal`, `divide`, `notequal`, `greater`, `less`, `greaterequal`, `lessequal`, `plusminus`, `logicalnot`, `emptyset`, `intersection`, `integral`, `product`, `summation`, `radical`, `partialdiff`, `micro`, `perthousand`, `universal`, `checkmark`
+* 优化小型大写
+  * 新增：`percent.sc`
+  * 删除：`exclamationquestion.sc`, `questionexclamation.sc`
+  * 调整字形：`parenleft.sc`, `parenright.sc`, `braceleft.sc`, `braceright.sc`, `bracketleft.sc`, `bracketright.sc`, `comma.sc`, `semicolon.sc`, `exclamdown.sc`, `questiondown.sc`, `periodcentered.sc`, `quotedblbase.sc`, `quotedblleft.sc`, `quotedblright.sc`, `quoteleft.sc`, `quoteright.sc`, `asterisk.sc`, `percent.sc`, `perthousand.sc`
+* 更改 `.notdef` 造型，和其他样式中保持一致
+
+### 9px
+
+* 新增中文破折号 `twoemdash`、省略号 `ellipsis-han` 及相应的 `ccmp` 特性
+* 新增用于时间显示的居中冒号 `colon.calt` 及相应的 `calt` 特性
+* 新增小型大写：`braceleft.sc`, `braceright.sc`, `bracketleft.sc`, `bracketright.sc`, `colon.sc`, `semicolon.sc`, `exclam.sc`, `exclamdown.sc`, `question.sc`, `questiondown.sc`, `periodcentered.sc`, `quotedblbase.sc`, `quotedblleft.sc`, `quotedblright.sc`, `quoteleft.sc`, `quoteright.sc`, `asterisk.sc`
+* 删除多余字偶距：`igrave`/`imacron` `@I`/`@I`, `Hbar`/`I`, `b`/`period`, `idotaccent`/`igrave`, `imacron`/`j`
+* 删除无用字符形：`uni5C06.ss01`, `uni5F84.ss01`, `uni611F.ss01`, `uni6539.ss01`, `uni7A7A.ss01`
+* 调整标点字形：`questiondown`, `comma.full.vert`, `colon.full.vert`, `semicolon.full.vert`
+
+### 9px Italic
+
+* 新增字符形：`greater`, `less`
+
+## v1.000 (2020-09-20)
+
+* 公开发布，现包含 7px、9px、9px Italic、9px Code 四个子样
