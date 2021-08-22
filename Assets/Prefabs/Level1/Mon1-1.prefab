@@ -310,9 +310,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed1: 2
   speed2: 10
+  Crystal: {fileID: 1096531205324852481, guid: de43197fb55ec17448b368c992ece697, type: 3}
   timeToChangeDirection: 0.5
-  timeToBurst: 2
-  burstDuration: 2
+  timeToBurst: 3
+  burstDuration: 1
   Target: {fileID: 0}
   FollowDistance: 12
 --- !u!70 &7232052965599547152

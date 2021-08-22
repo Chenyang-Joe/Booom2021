@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.UI;
 
 public class Mon1_1Controller : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class Mon1_1Controller : MonoBehaviour
     public float speed1 = 2f;
     public float speed2 = 10f;
     private float _currentSpeed = 1f;
+
+    public GameObject Crystal;
+    private float _crystalNumber = 1f;
+    public Text MonsterCounter;
+    public Text CrystalCounter;
 
 
 
@@ -28,6 +34,8 @@ public class Mon1_1Controller : MonoBehaviour
     private Path _path;
     private int _currentWaypoint;
     private float _nextWaypointDistance = 0.1f;
+
+    private bool _dead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +62,7 @@ public class Mon1_1Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
+
 
 
         switch (_monsterState)
@@ -90,6 +99,10 @@ public class Mon1_1Controller : MonoBehaviour
 
         if (_targetDistance  <= FollowDistance)
         {
+            if (_dead)
+            {
+                return;
+            }
             _monsterState = 1;
             _remainingTime = timeToBurst;
 
@@ -275,11 +288,31 @@ public class Mon1_1Controller : MonoBehaviour
     IEnumerator Dispear()
     {
         _monsterState = 0;
+        _dead = true;
         GetComponent<Animator>().SetFloat(name: "Dead", 1f);
         yield return new WaitForSeconds(1);
+        for (int i = 0; i < _crystalNumber; i++)
+        {
+            Instantiate(Crystal, _rigidBody2D.position + Random.insideUnitCircle * 2, Quaternion.identity);
+        }
+
+        MonsterCounter.GetComponent<MCManager>().MinusOne();
+        CrystalCounter.GetComponent<CCManager>().PlusNum(_crystalNumber);
         Destroy(gameObject);
 
     }
+
+    public void ChangeNumber(float num)
+    {
+
+        _crystalNumber = num;
+    }
+
+
+
+
+
+
 
 
 }

@@ -73,6 +73,7 @@ public class BombInstallRight : MonoBehaviour
             }
         }
 
+
         return false;
     }
 
@@ -94,16 +95,23 @@ public class BombInstallRight : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_currentPosition, radius);
 
 
+        float count = 0;
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject.tag == "Monster")
             {
+                count += 1;
+            }
+        }
 
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject.tag == "Monster")
+            {
+                colliders[i].gameObject.GetComponent<Mon1_1Controller>().ChangeNumber(count);
                 colliders[i].gameObject.GetComponent<Mon1_1Controller>().Dead();
                 StartCoroutine(Dispear());
-
-
-
             }
         }
 

@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
 
 public class BaoanController : MonoBehaviour
 {
@@ -16,13 +20,19 @@ public class BaoanController : MonoBehaviour
     private float _x;
     private float _y;
 
+    private bool _invincible = false;
+    private float _invincibleTime = 1f;
+    public Image[] LifeList;
+    private int _life;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-
+        _life = LifeList.Length;
 
     }
 
@@ -64,6 +74,21 @@ public class BaoanController : MonoBehaviour
         _animator.SetFloat(name: "Speed", _currentInput.magnitude);
 
 
+        if (_invincible)
+        {
+            _invincibleTime -= Time.deltaTime;
+        }
+
+        if (_invincibleTime <= 0)
+        {
+            _invincible = false;
+            _invincibleTime = 1f;
+            _animator.SetFloat(name: "Damage", 0);
+
+
+        }
+
+
     }
 
 
@@ -75,6 +100,32 @@ public class BaoanController : MonoBehaviour
 
     }
 
+
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if (_invincible)
+        {
+            return;
+        }
+
+        if (string.Equals(other.collider.name.Substring(0, 3), "Mon"))
+        {
+            _invincible = true;
+            _animator.SetFloat(name: "Damage", 1);
+            _life -= 1;
+            if (_life < 0)
+            {
+                SceneManager.LoadScene(3);
+                return;
+            }
+            LifeList[_life].GetComponent<Image>().color = new Color(1, 1, 1, 0);
+
+
+
+        }
+    }
 
 
 

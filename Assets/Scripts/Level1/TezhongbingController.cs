@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class TezhongbingController : MonoBehaviour
 {
@@ -24,6 +26,9 @@ public class TezhongbingController : MonoBehaviour
 
 
     public bool HoldItem = false;
+
+
+    public Text ItemCounter;
 
     // Start is called before the first frame update
     void Start()
@@ -134,6 +139,8 @@ public class TezhongbingController : MonoBehaviour
 
 
         transform.Find("BombGrabber").GetComponent<WeaponManager>().PutDownBomb();
+        ItemCounter.GetComponent<ItemManager>().MinusOne();
+
 
         StartCoroutine(InstallAnimate());
 
