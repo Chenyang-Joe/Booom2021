@@ -21,6 +21,12 @@ public class CCManager : MonoBehaviour
 
     public void PlusNum(float Num)
     {
-        GetComponent<Text>().text = ((int)(float.Parse(GetComponent<Text>().text.Substring(0, 1)) + Num) / 1).ToString() + GetComponent<Text>().text.Substring(1, 2);
+        char[] separator = { '/' };
+        string str = GetComponent<Text>().text;
+        string[] arr = str.Split(separator);
+
+
+        GetComponent<Text>().text = ((int)(float.Parse(arr[0]) + Num) / 1).ToString() + '/' + arr[1];
+
     }
 }

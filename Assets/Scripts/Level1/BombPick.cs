@@ -22,13 +22,21 @@ public class BombPick : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (string.Equals(other.gameObject.name, "Tezhongbing") && !other.GetComponent<TezhongbingController>().HoldItem)
+        if (  (string.Equals(other.gameObject.name, "Tezhongbing")) && !other.GetComponent<TezhongbingController>().HoldItem)
         {
             
             other.transform.Find("BombGrabber").GetComponent<WeaponManager>().PickUpBomb(_sprite);
             other.GetComponent<TezhongbingController>().Hold();
             Destroy(gameObject);
         }
+        else if ((string.Equals(other.gameObject.name, "Jixieshi")) && !other.GetComponent<JixieshiController>().HoldItem)
+        {
+
+            other.transform.Find("BombGrabber").GetComponent<WeaponManager>().PickUpBomb(_sprite);
+            other.GetComponent<JixieshiController>().Hold();
+            Destroy(gameObject);
+        }
+
     }
 
 

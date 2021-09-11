@@ -18,6 +18,8 @@ public class Mon1_1Controller : MonoBehaviour
     public Text MonsterCounter;
     public Text CrystalCounter;
 
+    private System.Random random;
+
 
 
     private int _monsterState = 0;
@@ -46,6 +48,7 @@ public class Mon1_1Controller : MonoBehaviour
 
 
         _remainingTime = timeToChangeDirection;
+        random = new System.Random();
 
 
     }
@@ -134,7 +137,7 @@ public class Mon1_1Controller : MonoBehaviour
 
         if (_remainingTime <= 0)
         {
-            _remainingTime = burstDuration;
+            _remainingTime = burstDuration + random.Next(1, 1000) / 2000;
             _monsterState = 2;
 
         }
@@ -153,7 +156,7 @@ public class Mon1_1Controller : MonoBehaviour
 
         if (_remainingTime <= 0)
         {
-            _remainingTime = burstDuration;
+            _remainingTime = burstDuration + random.Next(1, 1000) / 2000;
             _monsterState = 2;
         }
     }

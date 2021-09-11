@@ -21,11 +21,15 @@ public class MCManager : MonoBehaviour
 
     public void MinusOne()
     {
-        GetComponent<Text>().text = ((int)(float.Parse(GetComponent<Text>().text.Substring(0, 1))-1)/1).ToString() + GetComponent<Text>().text.Substring(1, 2);
-        if (float.Parse(GetComponent<Text>().text.Substring(0, 1))==0)
+        char[] separator = { '/' };
+        string str = GetComponent<Text>().text;
+        string[] arr = str.Split(separator);
+
+
+        GetComponent<Text>().text = ((int)(float.Parse(arr[0])-1)/1).ToString() +'/' + arr[1];
+        if (float.Parse(arr[0]) == 1f)
         {
-            float.Parse(GetComponent<Text>().text.Substring(0, 1));
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(6);
         }
     }
 }

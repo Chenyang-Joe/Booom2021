@@ -30,7 +30,7 @@ public class TimeManager : MonoBehaviour
         else
         {
             NoTime = true;
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(5);
 
         }
 

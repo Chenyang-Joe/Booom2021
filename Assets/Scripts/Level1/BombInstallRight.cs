@@ -71,6 +71,7 @@ public class BombInstallRight : MonoBehaviour
             {
                 return true;
             }
+
         }
 
 
@@ -93,7 +94,7 @@ public class BombInstallRight : MonoBehaviour
         print("BOOOM");
         Vector2 _currentPosition = _rigidbody.position;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_currentPosition, radius);
-
+        GetComponent<AudioSource>().Play();
 
         float count = 0;
         for (int i = 0; i < colliders.Length; i++)
@@ -108,11 +109,17 @@ public class BombInstallRight : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject.tag == "Monster")
-            {
-                colliders[i].gameObject.GetComponent<Mon1_1Controller>().ChangeNumber(count);
-                colliders[i].gameObject.GetComponent<Mon1_1Controller>().Dead();
-                StartCoroutine(Dispear());
-            }
+                if (string.Equals(colliders[i].gameObject.name.Substring(0, 3), "Mon"))
+                {
+                    colliders[i].gameObject.GetComponent<Mon1_1Controller>().ChangeNumber(count);
+                    colliders[i].gameObject.GetComponent<Mon1_1Controller>().Dead();
+                    StartCoroutine(Dispear());
+                }
+                else
+                {
+                    colliders[i].gameObject.GetComponent<ShibingController>().Dead();
+                    StartCoroutine(Dispear());
+                }
         }
 
 

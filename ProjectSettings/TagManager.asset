@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Monster
+  - Sound
+  - Sound1
+  - Sound2
   layers:
   - Default
   - TransparentFX

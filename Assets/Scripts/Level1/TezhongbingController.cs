@@ -30,6 +30,8 @@ public class TezhongbingController : MonoBehaviour
 
     public Text ItemCounter;
 
+    private bool _frooze = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,9 @@ public class TezhongbingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
 
 
         _x = Input.GetAxis("Horizontal2");
@@ -78,6 +83,12 @@ public class TezhongbingController : MonoBehaviour
         }
         _animator.SetFloat(name: "Speed", _currentInput.magnitude);
 
+        if (_frooze)
+        {
+            return;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.J) && HoldItem)
         {
             LaunchBomb();
@@ -95,6 +106,13 @@ public class TezhongbingController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (_frooze)
+        {
+            return;
+        }
+
+
         Vector2 position = _rigidbody2D.position;
         position += _currentInput * speed * Time.deltaTime;
         _rigidbody2D.MovePosition(position);
@@ -167,9 +185,19 @@ public class TezhongbingController : MonoBehaviour
     }
 
 
-    void Delay()
+    public void Frooze()
     {
-        Debug.Log( "Delay" );
+
+        _frooze = true;
+    
+    }
+
+
+    public void UnFrooze()
+    {
+
+        _frooze = false;
+
+    }
 }
 
-}

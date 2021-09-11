@@ -25,7 +25,7 @@ public class BaoanController : MonoBehaviour
     public Image[] LifeList;
     private int _life;
 
-
+    private bool _frooze = false;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +63,12 @@ public class BaoanController : MonoBehaviour
             _animator.SetFloat(name: "LookX", 0f);
         }
 
+        if (_frooze)
+        {
+            return;
+        }
+
+
         if (Input.GetKey(KeyCode.RightShift))
         {
             _currentInput = movement * 2.0f;
@@ -94,6 +100,12 @@ public class BaoanController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_frooze)
+        {
+            return;
+        }
+
+
         Vector2 position = _rigidBody2D.position;
         position += _currentInput * speed * Time.deltaTime;
         _rigidBody2D.MovePosition(position);
@@ -117,7 +129,7 @@ public class BaoanController : MonoBehaviour
             _life -= 1;
             if (_life < 0)
             {
-                SceneManager.LoadScene(3);
+                SceneManager.LoadScene(5);
                 return;
             }
             LifeList[_life].GetComponent<Image>().color = new Color(1, 1, 1, 0);
@@ -127,6 +139,19 @@ public class BaoanController : MonoBehaviour
         }
     }
 
+    public void Frooze()
+    {
 
+        _frooze = true;
+
+    }
+
+
+    public void UnFrooze()
+    {
+
+        _frooze = false;
+
+    }
 
 }
